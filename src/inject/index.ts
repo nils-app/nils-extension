@@ -1,0 +1,1 @@
+alert('I got injected!');
