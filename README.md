@@ -1,2 +1,1 @@
-# nil-firefox
-Nil extension for Firefox
+# Nil Browser Extensions
