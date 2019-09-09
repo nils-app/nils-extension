@@ -8,7 +8,18 @@
   "license": "AGPL-3",
   "private": true,
   "scripts": {
-    "start": "webpack --config internals/webpack.config.js"
+    "start": "webpack --config internals/webpack.config.js",
+    "watch": "npm start -- --watch",
+    "lint": "tslint --project ./ --format stylish 'src/**/*.ts?(x)'",
+    "lint:fix": "npm run lint -- --fix",
+    "chrome-build": "cross-env TARGET=chrome npm run webpack",
+    "opera-build": "cross-env TARGET=opera npm run webpack",
+    "firefox-build": "cross-env TARGET=firefox npm run webpack",
+    "build": "npm run chrome-build && npm run opera-build && npm run firefox-build",
+    "dist": "npm run lint && cross-env NODE_ENV=production npm run chrome-build && cross-env NODE_ENV=production npm run opera-build && cross-env NODE_ENV=production npm run firefox-build",
+    "chrome-watch": "cross-env TARGET=chrome npm run webpack-watch",
+    "opera-watch": "cross-env TARGET=opera npm run webpack-watch",
+    "firefox-watch": "cross-env TARGET=firefox npm run webpack-watch"
   },
   "dependencies": {
     "react": "^16.6.3",
@@ -21,6 +32,9 @@
     "css-loader": "^3.2.0",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.0.4",
+    "tslint": "^5.19.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-react": "^4.0.0",
     "typescript": "^3.1.6",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",

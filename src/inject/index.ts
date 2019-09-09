@@ -1,1 +1,1 @@
-alert('I got injected!');
+alert('I got injected!')
