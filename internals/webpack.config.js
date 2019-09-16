@@ -1,7 +1,8 @@
 const path = require("path");
+const fs = require("fs");
 const WebextensionPlugin = require("webpack-webextension-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
-const LiveReloadPlugin = require("webpack-weex-livereload-plugin");
+const LiveReloadPlugin = require("webpack-livereload-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -9,7 +10,8 @@ const OUTPUT_PATH = "dist";
 const target = process.env.TARGET || "firefox";
 
 // Prepare the manifest
-const manifestTemplate = JSON.parse(fs.readFileSync(`../manifest.json`));
+const manifestPath = path.resolve(__dirname, '../manifest.json');
+const manifestTemplate = JSON.parse(fs.readFileSync(manifestPath));
 const manifestOptions = {
   firefox: {
     applications: {
@@ -25,7 +27,7 @@ const manifest = Object.assign(
   target === "firefox" ? manifestOptions.firefox : {}
 );
 
-const webackConfig = {
+const webpackConfig = {
   mode: "development",
   devtool: "inline-source-map",
 
@@ -132,8 +134,8 @@ if (isProduction) {
   };
 } else {
   webpackConfig.entry.background = [
-    "./src/scripts/livereload.ts",
-    "./src/scripts/background.ts"
+    // "./src/app/livereload.ts",
+    "./src/app/background.ts"
   ];
   webpackConfig.plugins = webpackConfig.plugins.concat([
     new WriteFilePlugin(),
@@ -141,4 +143,4 @@ if (isProduction) {
   ]);
 }
 
-module.exports = webackConfig;
+module.exports = webpackConfig;
