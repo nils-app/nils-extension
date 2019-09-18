@@ -3,17 +3,9 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "Nil extension for the browser",
-  "homepage_url": "https://nil.app",
+  "homepage_url": "https://getnil.app",
   "icons": {
-    "36": "assets/android-chrome-36x36.png",
-    "48": "assets/android-chrome-48x48.png",
-    "72": "assets/android-chrome-72x72.png",
-    "96": "assets/android-chrome-96x96.png",
-    "144": "assets/android-chrome-144x144.png",
-    "192": "assets/android-chrome-192x192.png",
-    "256": "assets/android-chrome-256x256.png",
-    "384": "assets/android-chrome-384x384.png",
-    "512": "assets/android-chrome-512x512.png"
+    "512": "icons/icon512-orange.png"
   },
   "background": {
     "scripts": [
@@ -23,21 +15,14 @@
   },
   "browser_action": {
     "default_icon": {
-      "36": "assets/android-chrome-36x36.png",
-      "48": "assets/android-chrome-48x48.png",
-      "72": "assets/android-chrome-72x72.png",
-      "96": "assets/android-chrome-96x96.png",
-      "144": "assets/android-chrome-144x144.png",
-      "192": "assets/android-chrome-192x192.png",
-      "256": "assets/android-chrome-256x256.png",
-      "384": "assets/android-chrome-384x384.png",
-      "512": "assets/android-chrome-512x512.png"
+      "512": "icons/icon512-gray.png"
     },
-    "default_title": "Nil Options",
+    "default_title": "Nil - Tip the web",
     "default_popup": "popup.html"
   },
   "permissions": [
-    "notifications"
+    "notifications",
+    "tabs"
   ],
   "content_scripts": [
     {

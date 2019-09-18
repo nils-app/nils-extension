@@ -3,7 +3,7 @@ const fs = require("fs");
 const WebextensionPlugin = require("webpack-webextension-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -77,24 +77,11 @@ const webpackConfig = {
       title: 'Nils',
       chunks: ['popup'],
     }),
-    new FaviconsWebpackPlugin({
-      logo: './src/icons/logo.png',
-      inject: false,
-      mode: 'webapp',
-      devMode: 'webapp',
-      favicons: {
-        icons: {
-          android: true,
-          appleIcon: false,
-          appleStartup: false,
-          coast: false,
-          favicons: false,
-          firefox: false,
-          windows: false,
-          yandex: false,
-        }
-      }
-    })
+    new CopyPlugin([
+      {
+        from: 'src/icons', to: 'icons'
+      },
+    ])
   ],
 
   output: {
