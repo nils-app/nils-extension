@@ -34,3 +34,13 @@ body {
     }
   }
 }
+
+.btn-toolbar.spaced {
+  .btn {
+    margin-right: 0.5em;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

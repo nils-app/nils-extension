@@ -78,9 +78,13 @@ class Popup extends React.Component {
           </Row>
           <Row>
             <Col>
-              <ButtonToolbar>
-                <Button variant='outline-danger'>Block</Button>
-                <Button variant='outline-primary'>Add balance</Button>
+              <ButtonToolbar className='spaced'>
+                <Button variant='outline-danger' size='sm'>
+                  Block
+                </Button>
+                <Button variant='outline-primary' size='sm'>
+                  Add balance
+                </Button>
               </ButtonToolbar>
             </Col>
           </Row>
