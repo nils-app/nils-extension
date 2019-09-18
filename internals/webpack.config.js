@@ -2,8 +2,9 @@ const path = require("path");
 const fs = require("fs");
 const WebextensionPlugin = require("webpack-webextension-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
-const LiveReloadPlugin = require("webpack-livereload-plugin");
 const ZipPlugin = require("zip-webpack-plugin");
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === "production";
 const OUTPUT_PATH = "dist";
@@ -16,7 +17,7 @@ const manifestOptions = {
   firefox: {
     applications: {
       gecko: {
-        id: "my-app-id@mozilla.org"
+        id: "nils@nilsapp.com"
       }
     }
   }
@@ -27,14 +28,16 @@ const manifest = Object.assign(
   target === "firefox" ? manifestOptions.firefox : {}
 );
 
+const sourceRootPath = './src';
+
 const webpackConfig = {
   mode: "development",
   devtool: "inline-source-map",
 
   entry: {
-    content: "./src/app/content.ts",
-    background: "./src/app/background.ts",
-    popup: "./src/popup/index.tsx"
+    content: `${sourceRootPath}/app/content.ts`,
+    background: `${sourceRootPath}/app/background.ts`,
+    popup: `${sourceRootPath}/popup/index.tsx`
   },
 
   resolve: {
@@ -64,7 +67,33 @@ const webpackConfig = {
 
   plugins: [
     new WebextensionPlugin({
-      vendor: "chrome"
+      vendor: target,
+      manifestDefaults: manifest,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(sourceRootPath, 'html', 'popup.html'),
+      inject: 'body',
+      filename: 'popup.html',
+      title: 'Nils',
+      chunks: ['popup'],
+    }),
+    new FaviconsWebpackPlugin({
+      logo: './src/icons/logo.png',
+      inject: false,
+      mode: 'webapp',
+      devMode: 'webapp',
+      favicons: {
+        icons: {
+          android: true,
+          appleIcon: false,
+          appleStartup: false,
+          coast: false,
+          favicons: false,
+          firefox: false,
+          windows: false,
+          yandex: false,
+        }
+      }
     })
   ],
 
@@ -134,12 +163,10 @@ if (isProduction) {
   };
 } else {
   webpackConfig.entry.background = [
-    // "./src/app/livereload.ts",
     "./src/app/background.ts"
   ];
   webpackConfig.plugins = webpackConfig.plugins.concat([
     new WriteFilePlugin(),
-    new LiveReloadPlugin({ port: 35729, message: "reload" })
   ]);
 }
 
