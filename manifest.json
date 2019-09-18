@@ -24,14 +24,5 @@
     "notifications",
     "tabs"
   ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://www.google.com/*"
-      ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ]
+  "content_scripts": []
 }
