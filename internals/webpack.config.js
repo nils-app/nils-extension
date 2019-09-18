@@ -35,7 +35,6 @@ const webpackConfig = {
   devtool: "inline-source-map",
 
   entry: {
-    content: `${sourceRootPath}/app/content.ts`,
     background: `${sourceRootPath}/app/background.ts`,
     popup: `${sourceRootPath}/popup/index.tsx`
   },
@@ -61,7 +60,15 @@ const webpackConfig = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
-      }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
     ]
   },
 

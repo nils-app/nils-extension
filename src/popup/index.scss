@@ -1,0 +1,36 @@
+@import "../lib/variables";
+
+$body-bg: #efefef;
+$body-color: #333;
+
+// Bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background: $body-bg;
+}
+
+.popup {
+  padding: 0 0 1em;
+
+  .status {
+    padding: 1em;
+    text-align: center;
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 1em;
+
+    &.blocked {
+      background-color: $red;
+      color: #fff;
+    }
+
+    &.paid {
+      background-color: $green;
+      color: #fff;
+    }
+
+    &.unsupported {
+      background-color: $gray-500;
+    }
+  }
+}

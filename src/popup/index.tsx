@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import { browser } from 'webextension-polyfill-ts';
+import { ButtonToolbar, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 
 import { getUrlStatus, TabStatus } from '../lib/tab';
 
-import './index.css';
+import './index.scss';
 
 type State = {
   tabStatus: TabStatus,
@@ -46,7 +47,8 @@ class Popup extends React.Component {
       if (status === 'blocked') {
         content = 'Blocked';
       } else if (status === 'paid') {
-        content = `Paid! ${amount}`;
+        const s = amount > 1 ? 's' : '';
+        content = `Sent ${amount} Nil${s}!`;
       } else {
         content = 'Unsupported';
       }
@@ -63,12 +65,26 @@ class Popup extends React.Component {
 
   render () {
     return (
-      <div className='popup-padded'>
+      <div className='popup'>
         {this.renderTabStatus()}
-        <div>
-          <h2>Balance:</h2>
-          <p>100 Nils</p>
-        </div>
+        <Container>
+          <Row>
+            <Col>
+              <Alert variant='primary'>
+                <Alert.Heading>Balance</Alert.Heading>
+                <p>100 Nils</p>
+              </Alert>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ButtonToolbar>
+                <Button variant='outline-danger'>Block</Button>
+                <Button variant='outline-primary'>Add balance</Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
