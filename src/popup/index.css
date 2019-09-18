@@ -1,3 +1,22 @@
 body {
-    background: red;
+    background: #efefef;
+}
+
+.status {
+  padding: 1em 2em;
+  border-bottom: solid 1px #ccc;
+}
+
+.status.blocked {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.status.paid {
+  background-color: #8BC34A;
+  color: #fff;
+}
+
+.status.unsupported {
+  background-color: gray;
 }

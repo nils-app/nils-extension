@@ -2,5 +2,7 @@
     "extends": ["tslint-config-standard", "tslint-react"],
     "rules": {
       "jsx-no-multiline-js": false,
-      "trailing-comma": [true, {"multiline": "always", "singleline": "never"}]    }
+      "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+      "semicolon": [true, "always"]
+    }
   }
