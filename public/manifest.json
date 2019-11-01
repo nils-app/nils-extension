@@ -1,0 +1,28 @@
+{
+  "name": "Nils",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Nils extension for the browser",
+  "homepage_url": "https://getnils.app",
+  "icons": {
+    "512": "icons/icon512-orange.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": {
+      "512": "icons/icon512-gray.png"
+    },
+    "default_title": "Nils - Tip the web",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "notifications",
+    "tabs"
+  ],
+  "content_scripts": []
+}
