@@ -5,7 +5,7 @@
   "description": "Nils extension for the browser",
   "homepage_url": "https://getnils.app",
   "icons": {
-    "512": "icons/icon512-orange.png"
+    "512": "assets/icons/icon512-orange.png"
   },
   "background": {
     "scripts": [
@@ -15,14 +15,16 @@
   },
   "browser_action": {
     "default_icon": {
-      "512": "icons/icon512-gray.png"
+      "512": "assets/icons/icon512-gray.png"
     },
     "default_title": "Nils - Tip the web",
-    "default_popup": "index.html"
+    "default_popup": "popup/index.html"
   },
   "permissions": [
     "notifications",
-    "tabs"
+    "tabs",
+    "cookies",
+    "*://*.nils.local/"
   ],
   "content_scripts": []
 }

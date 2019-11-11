@@ -3,25 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/chrome": "^0.0.91",
-    "@types/react": "^16.9.11",
-    "@types/react-bootstrap": "^0.32.20",
-    "@types/react-dom": "^16.9.3",
-    "bootstrap": "^4.3.1",
-    "cra-build-watch": "^3.0.0",
-    "node-sass": "^4.13.0",
-    "react": "^16.11.0",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0",
-    "typescript": "^3.6.4",
-    "webextension-polyfill-ts": "^0.10.0"
+    "@types/chrome": "0.0.91",
+    "@types/node": "^12.6.8",
+    "awesome-typescript-loader": "^5.2.1",
+    "bestzip": "^2.1.4",
+    "cpy-cli": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "webextension-polyfill-ts": "^0.10.0",
+    "webpack": "4.41.2",
+    "webpack-cli": "^3.3.6"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "watch": "cra-build-watch",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
-    "test": "react-scripts test"
+    "clean": "rm -rf dist && cpy manifest.json dist && cpy src/assets/* dist/assets",
+    "prebuild": "npm run clean",
+    "build:scripts": "NODE_ENV=production webpack --config internal/webpack.config.js",
+    "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy * /static/* ../../../dist/popup --parents",
+    "build": "npm-run-all build:*",
+    "prewatch": "npm run clean",
+    "watch:scripts": "NODE_ENV=development webpack --config internal/webpack.config.js -w",
+    "watch:popup": "npm run watch --prefix src/popup",
+    "watch": "npm-run-all --parallel watch:*",
+    "zip": "bestzip extension.zip dist/*",
+    "postinstall": "cd src/popup && yarn install"
   },
   "eslintConfig": {
     "extends": "react-app"
