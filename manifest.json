@@ -24,6 +24,7 @@
     "notifications",
     "tabs",
     "cookies",
+    "storage",
     "*://*.nils.local/"
   ],
   "content_scripts": []

@@ -34,14 +34,14 @@ browser.tabs.onUpdated.addListener((tabId, change, tab) => {
   }
 });
 
-const onLoad = (tabId: number, url: string) => {
+const onLoad = async (tabId: number, url: string) => {
   if (url === undefined) {
     browser.browserAction.setIcon({
       path: '/assets/icon512-gray.png',
       tabId,
     });
   } else {
-    const tabStatus = getUrlStatus(url);
+    const tabStatus = await getUrlStatus(url);
     const statusMapping: any = {
       blocked: '/assets/icon512-orange.png',
       paid: '/assets/icon512-green.png',

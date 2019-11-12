@@ -19,9 +19,9 @@ export default () => {
           console.log(" no tab!");
           return null;
         }
-        setTabStatus(
-          getUrlStatus(tabs[0].url)
-        );
+        getUrlStatus(tabs[0].url).then((status) => {
+          setTabStatus(status);
+        });
       },
       () => {
         setTabStatus(null);
@@ -37,9 +37,18 @@ export default () => {
   //   // access any background methods here
   // });
 
+  if (!state.auth.checked) {
+    // Loading
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <pre className='code'>
-      <p>Popup content</p>
+      <p>Popup content, live reloads</p>
       <p>{ JSON.stringify(tabStatus, null, 2) }</p>
       <p>{ JSON.stringify(state.auth.user, null, 2) }</p>
     </pre>
