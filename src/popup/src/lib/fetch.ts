@@ -70,7 +70,6 @@ export const fetchUrl = async (url: string, method: FetchMethod, body?: any) => 
 
   const storedData = await browser.storage[STORAGE_AREA].get(CSRF_HEADER);
   const csrfToken = storedData[CSRF_HEADER];
-  console.log('CSRF TOKEN FROM STORAGE', csrfToken);
 
   if (csrfToken && csrfToken.length > 0) {
     options.headers[CSRF_HEADER] = csrfToken;
@@ -88,14 +87,12 @@ export const fetchUrl = async (url: string, method: FetchMethod, body?: any) => 
     return await response.data;
   } catch (error) {
     if (error.response) {
-      console.warn('useFetch error', error.response);
       const returnError: FetchError = {
         status: error.response.status,
         message: error.response.data ? error.response.data.errors.join(', ') : error.message,
       };
       throw returnError;
     } else {
-      console.warn('useFetch error', error);
       const returnError: FetchError = {
         status: 500,
         message: error.message,

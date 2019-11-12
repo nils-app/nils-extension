@@ -18,7 +18,6 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
   try {
     const domain = new URL(url).hostname;
     if (domain.length < 1) {
-      console.warn('Invalid domain (empty)');
       return status;
     }
     const data = await fetchResource(`/users/pay`, 'POST', {
@@ -26,16 +25,19 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
       amount_nils: 0,
     });
     console.log('Paid!', data);
+
+    // TODO: detect blocked domains
+
+    status.status = 'paid';
+    status.amount = 1;
   } catch (e) {
+    if (e.status === 404) {
+      // domain not registered
+      console.log('Domain not registered', domain);
+      return status;
+    }
     console.warn('Failed to send payment', e);
   }
 
-  if (url.match(/https:\/\/(www\.)?google\.com\/*/) == null) {
-    status.status = 'paid';
-    status.amount = 1;
-  }
-  if (url.match(/https:\/\/(www\.)?github\.com\/*/) !== null) {
-    status.status = 'blocked';
-  }
   return status;
 };
