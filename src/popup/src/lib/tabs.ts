@@ -4,6 +4,7 @@ export type TabStatus = {
   status: 'paid' | 'unsupported' | 'blocked',
   amount: number,
   url: string,
+  created_on: Date | null,
 };
 
 export const getUrlStatus = async (url: string): Promise<TabStatus> => {
@@ -13,6 +14,7 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
     status: 'unsupported',
     amount: 0,
     url,
+    created_on: null,
   };
 
   try {
@@ -29,11 +31,12 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
     // TODO: detect blocked domains
 
     status.status = 'paid';
-    status.amount = 1;
+    status.amount = data.amount_nils;
+    status.created_on = data.created_on;
   } catch (e) {
     if (e.status === 404) {
       // domain not registered
-      console.log('Domain not registered', domain);
+      console.log('Domain not registered');
       return status;
     }
     console.warn('Failed to send payment', e);

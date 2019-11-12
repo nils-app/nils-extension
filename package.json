@@ -25,7 +25,7 @@
     "prewatch": "npm run clean",
     "watch:scripts": "NODE_ENV=development webpack --config internal/webpack.config.js -w",
     "watch:popup": "npm run watch --prefix src/popup",
-    "watch": "npm-run-all --parallel watch:*",
+    "start": "npm-run-all --parallel watch:*",
     "zip": "bestzip extension.zip dist/*",
     "postinstall": "cd src/popup && yarn install"
   },
