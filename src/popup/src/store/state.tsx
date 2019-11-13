@@ -10,6 +10,7 @@ const initialState: AppState = {
     user: null,
     csrf: null,
   },
+  transactions: [],
   offline: false,
 };
 const defaultDispatch: React.Dispatch<Action> = () => {

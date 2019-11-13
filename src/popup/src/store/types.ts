@@ -7,6 +7,12 @@ export type User = {
   created_on: Date,
 };
 
+export type Transaction = {
+  domain: string,
+  amount_nils: number,
+  created_on: Date,
+};
+
 export type AppState = {
   auth: {
     checked: boolean,
@@ -14,6 +20,7 @@ export type AppState = {
     user: User | null,
     csrf: string | null,
   },
+  transactions: Transaction[],
   offline: boolean,
 };
 

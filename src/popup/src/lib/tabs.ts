@@ -1,4 +1,5 @@
 import { fetchResource } from './fetch';
+import { sha256 } from './hash';
 
 export type TabStatus = {
   status: 'paid' | 'unsupported' | 'blocked',
@@ -22,8 +23,10 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
     if (domain.length < 1) {
       return status;
     }
+    const domainHash = await sha256(domain);
+    console.log('hashed', domainHash);
     const data = await fetchResource(`/users/pay`, 'POST', {
-      domain,
+      domain: domainHash,
       amount_nils: 0,
     });
     console.log('Paid!', data);

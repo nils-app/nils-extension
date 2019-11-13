@@ -42,15 +42,24 @@ export default () => {
   if (!state.auth.checked) {
     // Loading
     return (
-      <div>
+      <div className='loading'>
         Loading...
+      </div>
+    );
+  }
+
+  if (state.auth.checked && !state.auth.user) {
+    // Loading
+    return (
+      <div className='loading'>
+        Log In
       </div>
     );
   }
 
   return (
     <>
-      <a className='section' href="http://localhost:3000/dashboard">
+      <a className='section' href="http://localhost:3000/dashboard" title='Top up your account now'>
         <small className='text-muted'>Balance</small><br/>
         { state.auth.user ? state.auth.user.balance : 0 } Nils
         <span className="right text-muted">

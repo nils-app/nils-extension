@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom";
+import 'webcrypto-liner';
 
 import Popup from './app';
 import { StateProvider } from './store/state';
