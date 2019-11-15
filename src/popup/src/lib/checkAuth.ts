@@ -25,12 +25,6 @@ function useCheckLogin() {
             csrf: '123',
           },
         });
-        dispatch({
-          type: 'status',
-          payload: {
-            offline: true,
-          },
-        })
         return;
       }
       fetchResource('/users/current', 'GET').then(data => {
@@ -52,6 +46,15 @@ function useCheckLogin() {
           type: 'login',
           payload: null,
         })
+
+        if (!reason || reason.status !== 401) {
+          dispatch({
+            type: 'status',
+            payload: {
+              offline: true,
+            },
+          })
+        }
       });
     }
   }, [checkedLogin, dispatch]);

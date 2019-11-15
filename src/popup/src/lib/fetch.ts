@@ -50,6 +50,8 @@ export const fetchResource = async (path: string, method: FetchMethod, body?: an
     throw new Error(`'url' is required for fetching data`);
   }
 
+  console.log('fetch api', API_URL);
+
   const url = `${API_URL}${path}`;
   return fetchUrl(url, method, body);
 };
@@ -89,7 +91,7 @@ export const fetchUrl = async (url: string, method: FetchMethod, body?: any) => 
     if (error.response) {
       const returnError: FetchError = {
         status: error.response.status,
-        message: error.response.data ? error.response.data.errors.join(', ') : error.message,
+        message: error.response.data && error.response.data.errors ? error.response.data.errors.join(', ') : error.message,
       };
       throw returnError;
     } else {

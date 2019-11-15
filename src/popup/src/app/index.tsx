@@ -5,7 +5,8 @@ import { Table } from "react-bootstrap";
 import { TabStatus, getUrlStatus } from "../lib/tabs";
 import useCheckLogin from "../lib/checkAuth";
 import { useStateValue } from "../store/state";
-import { BackgroundApi } from '../../../background/types';
+import Logo from "../components/Logo";
+import { WEB_URL } from '../constants';
 
 export default () => {
   const { state } = useStateValue();
@@ -14,6 +15,7 @@ export default () => {
   useCheckLogin();
 
   useEffect(() => {
+    // subscription pattern to avoid setting state if unmounted
     let isSubscribed = true;
     browser.tabs.query({ active: true, currentWindow: true }).then(
       tabs => {
@@ -36,14 +38,34 @@ export default () => {
         }
       }
     );
-    return () => isSubscribed = false;
+    return () => { isSubscribed = false };
   }, []);
 
   if (!state.auth.checked) {
     // Loading
     return (
       <div className='loading'>
-        Loading...
+        <p>
+          <Logo /> Nils
+        </p>
+        <p>
+          Loading...
+        </p>
+      </div>
+    );
+  }
+
+  if (state.auth.checked && state.offline) {
+    // Loading
+    return (
+      <div className='loading'>
+        <p>
+          <Logo /> Nils
+        </p>
+        <p className='text-muted'>
+          Can't reach the Nils server. <br/>
+          Please try again later!
+        </p>
       </div>
     );
   }
@@ -52,14 +74,21 @@ export default () => {
     // Loading
     return (
       <div className='loading'>
-        Log In
+        <p>
+          <Logo /> Nils
+        </p>
+        <p className='mt-4'>
+          <a href={ `${WEB_URL}/login` } className='btn btn-primary btn-sm' title='Sign in to Nils, or create an account'>
+            Sign In / Up
+          </a>
+        </p>
       </div>
     );
   }
 
   return (
     <>
-      <a className='section' href="http://localhost:3000/dashboard" title='Top up your account now'>
+      <a className='section' href={ `${WEB_URL}/dashboard` } title='Top up your account now'>
         <small className='text-muted'>Balance</small><br/>
         { state.auth.user ? state.auth.user.balance : 0 } Nils
         <span className="right text-muted">
