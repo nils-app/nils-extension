@@ -7,7 +7,7 @@ import { TabStatus, getUrlStatus } from "../lib/tabs";
 import useCheckLogin from "../lib/checkAuth";
 import { useStateValue } from "../store/state";
 import Logo from "../components/Logo";
-import { WEB_URL } from '../constants';
+import { API_URL, WEB_URL } from '../constants';
 import Transactions from "../components/Transactions";
 
 export default () => {
@@ -137,6 +137,11 @@ export default () => {
       <section>
         <div className='mb-2 text-muted'>Previous payments</div>
         <Transactions />
+      </section>
+      <section>
+        <div className="text-muted text-center">
+          <a href={ `${WEB_URL}/dashboard` }>Top Up</a> | <a href={ `${WEB_URL}` }>About Nils</a> | <a href={ `${API_URL}/users/logout` }>Sign Out</a>
+        </div>
       </section>
     </>
   );
