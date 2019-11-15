@@ -11,15 +11,15 @@ export type TabStatus = {
 export const getUrlStatus = async (url: string): Promise<TabStatus> => {
   // talk to our API to figure out the current tabs status
   // mock it for now
+  const domain = new URL(url).hostname;
   const status: TabStatus = {
     status: 'unsupported',
     amount: 0,
-    url,
+    url: domain,
     created_on: null,
   };
 
   try {
-    const domain = new URL(url).hostname;
     if (domain.length < 1) {
       return status;
     }

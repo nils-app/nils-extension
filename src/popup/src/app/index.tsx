@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { browser } from "webextension-polyfill-ts";
-import { Table } from "react-bootstrap";
+import { Table, Col, Row } from "react-bootstrap";
+import classNames from 'classnames';
 
 import { TabStatus, getUrlStatus } from "../lib/tabs";
 import useCheckLogin from "../lib/checkAuth";
@@ -86,24 +87,50 @@ export default () => {
     );
   }
 
+  let statusBg = 'bg-info';
+  if (tabStatus) {
+    switch (tabStatus.status) {
+      case 'paid':
+        statusBg = 'bg-success';
+        break;
+      case 'blocked':
+        statusBg = 'bg-danger';
+        break;
+    }
+  }
+
   return (
     <>
       <a className='section' href={ `${WEB_URL}/dashboard` } title='Top up your account now'>
-        <small className='text-muted'>Balance</small><br/>
-        { state.auth.user ? state.auth.user.balance : 0 } Nils
-        <span className="right text-muted">
-          Top Up
-        </span>
+        <Row>
+          <Col>
+            <small className='text-muted'>Balance</small><br/>
+            { state.auth.user ? state.auth.user.balance : 0 } Nils
+          </Col>
+          <Col>
+            <span className="right text-muted"></span>
+          </Col>
+        </Row>
       </a>
-      { tabStatus !== null && (
+      { tabStatus !== null && tabStatus.url && (
         <section>
-          <p>{ tabStatus.status }</p>
-          { tabStatus.status === 'paid' && (
-            <>
-              <p>Amount: { tabStatus.amount }</p>
-              <p>{ tabStatus.created_on }</p>
-            </>
-          ) }
+          <div className={ classNames('status-btn', statusBg)}>
+            { tabStatus.status === 'unsupported' && (
+              <>
+                { tabStatus.url } is not registered
+              </>
+            ) }
+            { tabStatus.status === 'paid' && (
+              <>
+                Paid <b>{ tabStatus.amount } Nils</b> to { tabStatus.url }!
+              </>
+            ) }
+            { tabStatus.status === 'blocked' && (
+              <>
+                { tabStatus.url } is blocked
+              </>
+            ) }
+          </div>
         </section>
       ) }
       <section>

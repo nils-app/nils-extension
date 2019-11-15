@@ -1,8 +1,10 @@
 import { browser } from "webextension-polyfill-ts";
 
+import { BackgroundApi } from '../../../background/types';
+
 export const getBackgroundApi = async (): Promise<BackgroundApi> => {
   return new Promise((resolve, reject) => {
-    browser.runtime.getBackgroundPage(async (backgroundWindow: any) => {
+    browser.runtime.getBackgroundPage().then((backgroundWindow: any) => {
       if (!backgroundWindow.nils) {
         reject(null);
       }

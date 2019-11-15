@@ -36,17 +36,20 @@ browser.tabs.onUpdated.addListener((tabId, change, tab) => {
 
 const onLoad = async (tabId: number, url: string) => {
   if (url === undefined) {
+    console.log('url undefined');
     browser.browserAction.setIcon({
       path: '/assets/icon512-gray.png',
       tabId,
     });
   } else {
     const tabStatus = await getUrlStatus(url);
+    console.log('background', tabStatus);
     const statusMapping: any = {
       blocked: '/assets/icon512-orange.png',
       paid: '/assets/icon512-green.png',
       unsupported: '/assets/icon512-gray.png',
     };
+    console.log('status for icon', tabStatus.status);
     browser.browserAction.setIcon({
       path: statusMapping[tabStatus.status],
       tabId,

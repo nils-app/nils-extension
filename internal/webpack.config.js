@@ -1,6 +1,7 @@
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const { optimize } = require('webpack');
 const { join } = require('path');
+const Dotenv = require('dotenv-webpack');
 let prodPlugins = [];
 
 const basePath = join(__dirname, '../');
@@ -32,6 +33,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new Dotenv({
+      path: 'src/popup/.env',
+    }),
     new CheckerPlugin(),
     ...prodPlugins,
   ],
