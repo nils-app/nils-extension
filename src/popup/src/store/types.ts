@@ -8,6 +8,7 @@ export type User = {
 };
 
 export type Transaction = {
+  uuid: string,
   domain: string,
   amount_nils: number,
   created_on: Date,
@@ -20,7 +21,11 @@ export type AppState = {
     user: User | null,
     csrf: string | null,
   },
-  transactions: Transaction[],
+  transactions: {
+    checked: boolean,
+    errors: any,
+    data: Transaction[],
+  },
   offline: boolean,
 };
 

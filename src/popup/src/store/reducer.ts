@@ -29,12 +29,18 @@ export default (state: AppState, reducerAction: Action) => {
           ...action.payload.auth,
         };
         draft.offline = action.payload.offline;
-        draft.transactions = action.payload.transactions;
+        draft.transactions = {
+          ...draft.transactions,
+          ...action.payload.transactions,
+        };
+        break;
+      case 'transactions':
+        draft.transactions.checked = true;
+        draft.transactions.errors = null;
+        draft.transactions.data = action.payload;
         break;
     }
   })(state, reducerAction);
-
-  console.log('next state', nextState);
 
   // Preserve state locally
   if (browser.storage) {

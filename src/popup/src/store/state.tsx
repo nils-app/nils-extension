@@ -11,7 +11,11 @@ let initialState: AppState = {
     user: null,
     csrf: null,
   },
-  transactions: [],
+  transactions: {
+    checked: false,
+    errors: null,
+    data: [],
+  },
   offline: false,
 };
 

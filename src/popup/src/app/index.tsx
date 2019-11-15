@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { browser } from "webextension-polyfill-ts";
-import { Table, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import classNames from 'classnames';
 
 import { TabStatus, getUrlStatus } from "../lib/tabs";
@@ -8,6 +8,7 @@ import useCheckLogin from "../lib/checkAuth";
 import { useStateValue } from "../store/state";
 import Logo from "../components/Logo";
 import { WEB_URL } from '../constants';
+import Transactions from "../components/Transactions";
 
 export default () => {
   const { state } = useStateValue();
@@ -135,29 +136,7 @@ export default () => {
       ) }
       <section>
         <div className='mb-2 text-muted'>Previous payments</div>
-        <div className="table-wrapper">
-          <Table bordered striped size='sm'>
-            <thead>
-              <tr>
-                <th>Domain</th>
-                <th>Amount</th>
-                <th>When</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>socialgorithm.org</td>
-                <td>1</td>
-                <td>4h</td>
-              </tr>
-              <tr>
-                <td>github.com</td>
-                <td>1</td>
-                <td>6h</td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
+        <Transactions />
       </section>
     </>
   );
