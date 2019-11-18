@@ -20,15 +20,6 @@ const backgroundApi: BackgroundApi = {};
  * Private API
  */
 
-// browser.tabs.onActivated.addListener((info) => {
-//   chrome.tabs.get(info.tabId, (change) => {
-//     if (change.url) {
-//       console.log('tab activated', change.url);
-//       onLoad(info.tabId, change.url);
-//     }
-//   });
-// });
-
 browser.tabs.onUpdated.addListener((tabId, change, tab) => {
   if (tab.url && (change.attention === false || change.status === 'complete')) {
     console.log('tab updated', change, tab.url);
