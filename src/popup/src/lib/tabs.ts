@@ -8,6 +8,8 @@ export type TabStatus = {
   created_on: Date | null,
 };
 
+const IGNORE_DOMAINS = ['localhost', '127.0.0.1'];
+
 export const getUrlStatus = async (url: string): Promise<TabStatus> => {
   // talk to our API to figure out the current tabs status
   // mock it for now
@@ -20,7 +22,7 @@ export const getUrlStatus = async (url: string): Promise<TabStatus> => {
   };
 
   try {
-    if (domain.length < 1) {
+    if (domain.length < 1 || IGNORE_DOMAINS.indexOf(domain) > -1) {
       return status;
     }
     // TODO: Hash domain

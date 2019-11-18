@@ -50,8 +50,6 @@ export const fetchResource = async (path: string, method: FetchMethod, body?: an
     throw new Error(`'url' is required for fetching data`);
   }
 
-  console.log('fetch api', API_URL);
-
   const url = `${API_URL}${path}`;
   return fetchUrl(url, method, body);
 };
