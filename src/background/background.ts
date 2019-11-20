@@ -22,7 +22,6 @@ const backgroundApi: BackgroundApi = {};
 
 browser.tabs.onUpdated.addListener((tabId, change, tab) => {
   if (tab.url && (change.attention === false || change.status === 'complete')) {
-    console.log('tab updated', change, tab.url);
     onLoad(tabId, tab.url);
   }
 }, {

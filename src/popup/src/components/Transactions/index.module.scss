@@ -1,0 +1,10 @@
+.textMuted {
+  color: scale-color(#000, $lightness: 60%);
+}
+
+.time {
+  display: inline-block;
+  width: 30px;
+  text-align: right;
+  margin-right: 0.5em;
+}

@@ -16,6 +16,13 @@ body {
   width: 400px;
 }
 
+a {
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+    color: scale-color($primary, $lightness: 20%);
+  }
+}
+
 section, .section {
   border-bottom: solid 1px #5c5c61;
   padding: 0.5rem 1rem;
@@ -26,7 +33,7 @@ section, .section {
     color: inherit;
 
     .text-muted {
-      color: scale-color($text, $lightness: 10%)
+      color: scale-color($text, $lightness: 40%)
     }
   }
 

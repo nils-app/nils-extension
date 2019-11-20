@@ -1,9 +1,26 @@
 import React, { useEffect } from "react";
-import { Table } from "react-bootstrap";
+import Timespan from 'readable-timespan';
+import classNames from 'classnames';
 
 import { useStateValue } from "../../store/state";
 import { fetchResource } from "../../lib/fetch";
 import { Transaction } from "../../store/types";
+
+import styles from './index.module.scss';
+
+const timespan = new Timespan({
+  millisecond: 'm',
+  second: 's',
+  minute: 'm',
+  hour: 'h',
+  day: 'd',
+  week: 'w',
+  month: 'm',
+  year: 'y',
+  now: 'now',
+  space: false,
+  pluralize: false,
+});
 
 export default () => {
   const { state, dispatch } = useStateValue();
@@ -25,32 +42,23 @@ export default () => {
     );
   }
 
+  const now = new Date();
+
   return (
-    <div className="table-wrapper">
-      <Table bordered striped size='sm'>
-        <thead>
-          <tr>
-            <th>Domain</th>
-            <th>Amount</th>
-            <th>When</th>
-          </tr>
-        </thead>
-        <tbody>
-          { state.transactions.data.map(transaction => (
-            <tr key={ transaction.uuid }>
-              <td>
-                { transaction.domain }
-              </td>
-              <td>
-                { transaction.amount_nils }
-              </td>
-              <td>
-                { transaction.created_on }
-              </td>
-            </tr>
-          )) }
-        </tbody>
-      </Table>
-    </div>
+    <>
+      { state.transactions.data.map(transaction => {
+        const amount = Math.round(transaction.amount_nils);
+        const domain = (
+          <b><a href={ `https://${transaction.domain}` }>{ transaction.domain }</a></b>
+        );
+        const created_on = new Date(transaction.created_on);
+        let when = timespan.parse(now.getTime() - created_on.getTime());
+        return (
+          <p key={ transaction.uuid }>
+            <span title={ created_on.toLocaleString() } className={ classNames(styles.time, styles.textMuted) }>{ when }</span> { amount } Nils <span className={ styles.textMuted }>to</span> { domain }
+          </p>
+        );
+      }) }
+    </>
   );
 };
