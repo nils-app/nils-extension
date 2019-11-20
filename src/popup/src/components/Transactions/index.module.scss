@@ -1,3 +1,11 @@
+.transactions {
+  font-size: 0.9em;
+
+  p {
+    margin-bottom: 0.5em;
+  }
+}
+
 .textMuted {
   color: scale-color(#000, $lightness: 60%);
 }

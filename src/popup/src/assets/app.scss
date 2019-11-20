@@ -96,10 +96,10 @@ a.section {
   text-align: center;
 }
 
-.status-btn {
-  width: auto;
-  display: block;
-  padding: 0.5em 1em;
-  border-radius: 0.25em;
-  text-align: center;
+.bg-info {
+  background-image: linear-gradient( 135deg, $primary 10%, scale-color($primary, $saturation: 10%, $lightness: -20%) 100%);
+}
+
+.bg-success {
+  background-image: linear-gradient( 135deg, scale-color($success, $saturation: 10%, $lightness: 10%) 10%, $success 100%);
 }

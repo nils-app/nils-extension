@@ -1,0 +1,35 @@
+@import "../../assets/variables";
+
+.statusBtn {
+  width: auto;
+  display: block;
+  padding: 0.5em 1em;
+  border-radius: 0.2em;
+  border-bottom: solid 1px $success;
+  border-right: solid 1px $success;
+  box-shadow: inset 1px 1px 1px 0 scale-color($success, $saturation: 10%, $lightness: 20%, $alpha: 0.8),
+              inset -1px -1px 1px 0 fade-out(#000, 0.8),
+              0 0.01rem 0.25rem fade-out(#000, 0.7) !important;
+  margin-bottom: 0.5em;
+}
+
+.actions {
+  font-size: 0.9em;
+  color: scale-color($background, $lightness: 40%);
+
+  a {
+    color: scale-color($warning, $lightness: -20%);
+
+    &:hover {
+      color: scale-color($warning, $lightness: 0);
+    }
+  }
+}
+
+.danger {
+  color: scale-color($danger, $lightness: 10%) !important;
+
+    &:hover {
+      color: scale-color($danger, $lightness: 30%) !important;
+    }
+}

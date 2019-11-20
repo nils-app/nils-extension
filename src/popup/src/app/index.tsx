@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { browser } from "webextension-polyfill-ts";
 import { Col, Row } from "react-bootstrap";
-import classNames from 'classnames';
 
 import { TabStatus, getUrlStatus } from "../lib/tabs";
 import useCheckLogin from "../lib/checkAuth";
@@ -9,6 +8,8 @@ import { useStateValue } from "../store/state";
 import Logo from "../components/Logo";
 import { API_URL, WEB_URL } from '../constants';
 import Transactions from "../components/Transactions";
+import CurrentPayment from '../components/CurrentPayment';
+import Footer from '../components/Footer';
 
 export default () => {
   const { state } = useStateValue();
@@ -88,18 +89,6 @@ export default () => {
     );
   }
 
-  let statusBg = 'bg-info';
-  if (tabStatus) {
-    switch (tabStatus.status) {
-      case 'paid':
-        statusBg = 'bg-success';
-        break;
-      case 'blocked':
-        statusBg = 'bg-danger';
-        break;
-    }
-  }
-
   return (
     <>
       <a className='section' href={ `${WEB_URL}/dashboard` } title='Top up your account now'>
@@ -113,35 +102,13 @@ export default () => {
           </Col>
         </Row>
       </a>
-      { tabStatus !== null && tabStatus.url && (
-        <section>
-          <div className={ classNames('status-btn', statusBg)}>
-            { tabStatus.status === 'unsupported' && (
-              <>
-                { tabStatus.url } is not registered
-              </>
-            ) }
-            { tabStatus.status === 'paid' && (
-              <>
-                Paid <b>{ tabStatus.amount } Nils</b> to { tabStatus.url }!
-              </>
-            ) }
-            { tabStatus.status === 'blocked' && (
-              <>
-                { tabStatus.url } is blocked
-              </>
-            ) }
-          </div>
-        </section>
-      ) }
+      <CurrentPayment tabStatus={ tabStatus } />
       <section>
         <div className='mb-2 text-muted'>Previous payments</div>
         <Transactions />
       </section>
       <section>
-        <div className="text-muted text-center">
-          <a href={ `${WEB_URL}/dashboard` }>Top Up</a> | <a href={ `${WEB_URL}` }>About Nils</a> | <a href={ `${API_URL}/users/logout` }>Sign Out</a>
-        </div>
+        <Footer />
       </section>
     </>
   );

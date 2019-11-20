@@ -1,0 +1,16 @@
+@import "../../assets/variables";
+
+.footer {
+  font-size: 0.9em;
+  color: scale-color($background, $lightness: 30%);
+  text-align: center;
+
+  a {
+    color: scale-color($warning, $saturation: -70%, $lightness: -20%);
+    margin-left: 1em;
+
+    &:hover {
+      color: scale-color($warning, $saturation: -50%, $lightness: 10%);
+    }
+  }
+}

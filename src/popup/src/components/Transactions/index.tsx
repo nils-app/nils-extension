@@ -45,7 +45,7 @@ export default () => {
   const now = new Date();
 
   return (
-    <>
+    <div className={ styles.transactions }>
       { state.transactions.data.map(transaction => {
         const amount = Math.round(transaction.amount_nils);
         const domain = (
@@ -59,6 +59,6 @@ export default () => {
           </p>
         );
       }) }
-    </>
+    </div>
   );
 };
