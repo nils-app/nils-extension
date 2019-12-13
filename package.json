@@ -18,10 +18,10 @@
     "webpack-cli": "^3.3.6"
   },
   "scripts": {
-    "clean": "rm -rf dist && cpy manifest.json dist && cpy src/assets/* dist/assets",
+    "clean": "rm -rf dist",
     "prebuild": "npm run clean",
     "build:scripts": "NODE_ENV=production webpack --config internal/webpack.config.js",
-    "build:popup": "npm run build --prefix src/popup && cd src/popup/build && cpy * /static/* ../../../dist/popup --parents",
+    "build:popup": "npm run build --prefix src/popup && cpy 'src/assets/**/*' dist/assets && cpy manifest.json dist && cd src/popup/build && cpy '**/*' '../../../dist/popup' --parents",
     "build": "npm-run-all build:*",
     "prewatch": "npm run clean",
     "watch:scripts": "NODE_ENV=development webpack --config internal/webpack.config.js -w",
